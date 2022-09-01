@@ -12,10 +12,14 @@ public class App
     }
 
     public static int doubleTheNumber(int number) {
-        return number * number;
+        return number + number;
     }
 
     private static int add(int[] numbers) {
-        return -1;
+        int sum = 0;
+        for (int num :numbers) {
+            sum += num;
+        }
+        return sum;
     }
 }
