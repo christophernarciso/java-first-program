@@ -1,5 +1,6 @@
 package com.h2;
 
+import java.util.Arrays;
 import java.util.Map;
 
 public class Finance {
@@ -24,5 +25,40 @@ public class Finance {
         }
 
         return false;
+    }
+
+    private static void executeCommand(String command, String[] arguments) {
+        switch(command) {
+            case BEST_LOAN_RATES:
+                System.out.println("Finding best loan rates ...");
+                BestLoanRates.main(arguments);
+                return;
+            case SAVINGS_CALCULATOR:
+                System.out.println("Finding your net savings ...");
+                SavingsCalculator.main(arguments);
+                return;
+            case MORTGAGE_CALCULATOR:
+                System.out.println("Finding your monthly payment ...");
+                MortgageCalculator.main(arguments);
+                return;
+        }
+    }
+
+    public static void main(String[] args) {
+        String command = args[0];
+
+        if (!commandsToUsage.containsKey(command)) {
+            System.out.println(command + ":command not found");
+            return;
+        }
+
+        boolean isValidCommand = validateCommandArguments(args);
+
+        if (!isValidCommand) {
+            System.out.println(commandsToUsage.get(command));
+            return;
+        }
+
+        executeCommand(command, Arrays.copyOfRange(args, 1, args.length));
     }
 }
